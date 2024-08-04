@@ -42,8 +42,28 @@
 %<*driver>
 \documentclass{ltxdoc}
 \usepackage{holtxdoc}[2011/11/22]
-\begin{document}
-  \DocInput{soul.dtx}%
+  \usepackage{soul}
+    \usepackage{graphicx,color}
+\GetFileInfo{soul.sty}
+
+\pdfstringdefDisableCommands{%
+        \let\program\relax
+        \let\so\relax
+        \let\caps\relax
+        \let\ul\relax
+        \let\st\relax
+        \let\hl\relax
+        \def\soul{soul}%
+        \def\TeX{TeX}}
+
+ \begin{document}
+
+   \DocInput{soul.dtx}%
+  \part{Documentation of soul-ori}
+  \OnlyDescription
+  \let\tableofcontents\relax
+  \let\SOULSTYfound\active
+  \DocInput{soul-ori.dtx}
 \end{document}
 %</driver>
 % \fi
