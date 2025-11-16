@@ -1,8 +1,8 @@
 This is a generated file for the l3build validation system.
 Don't change this file in any respect.
 (soul.sty
-LaTeX Warning: You have requested package `',
-               but the package provides `soul'.
+LaTeX Warning: You have requested file `',
+               but the file provides `soul'.
 Package: soul ....-..-.. v... Permit use of UTF-8 characters in soul (HO)
 (soul-ori.sty
 Package: soul-ori ....-..-.. v... letterspacing/underlining (mf)
