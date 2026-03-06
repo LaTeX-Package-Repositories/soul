@@ -1,7 +1,7 @@
 % \iffalse
 %% File: soul-ori.dtx
 % Copyright (C) 1998--2003  Melchior FRANZ
-% Copyright (C) 2021-2023   Oberdiek Package Support Group
+% Copyright (C) 2021-2026   Oberdiek Package Support Group
 %    https://github.com/ho-tex/soul/issues
 %
 % COPYRIGHT NOTICE:
@@ -48,8 +48,8 @@
 %
 %
 %<*driver>
-\def\fileversion{3.0}
-\def\filedate{2023-18-02}
+\def\fileversion{3.2}
+\def\filedate{2026-03-06}
 %
 \documentclass{ltxdoc}
 %
@@ -79,7 +79,7 @@
         colorlinks,
         pdftitle={The soul-ori package},
         pdfauthor={Melchior FRANZ},
-        pdfsubject={Version 3.0},
+        pdfsubject={Version 3.2},
         pdfkeywords={space out, letterspacing, underlining, overstriking, highlighting}
     }
     \usepackage{graphicx,color}
@@ -2271,7 +2271,7 @@
 \else
     \NeedsTeXFormat{LaTeX2e}
     \ProvidesPackage{soul-ori}
-        [2023-06-14 v3.1 letterspacing/underlining  (mf)]
+        [2026-03-06 v3.2 letterspacing/underlining  (mf)]
     \newfont\SOUL@tt{ectt1000}
     \newcommand*\sodef{}
     \newcommand*\resetso{}
@@ -2906,6 +2906,7 @@
 % that enforce every possible hyphenation. The result is a paragraph with one
 % line for every syllable.
 %
+% \changes{v3.2}{2026-03-06}{Added explicit \cs{RawParEnd} for issue \#14,\#15,\#16}
 %    \begin{macrocode}
 \def\SOUL@doword{%
     \edef\x{\the\SOUL@word}%
@@ -2928,7 +2929,8 @@
             \noindent
             \hskip\z@
             \relax
-            \the\SOUL@word}%
+            \the\SOUL@word
+            \RawParEnd}%
         \let\SOUL@errmsg\SOUL@error
         \let\-\relax
         \count@\m@ne

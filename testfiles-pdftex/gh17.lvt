@@ -1,0 +1,9 @@
+\input{regression-test}
+\documentclass{article}
+\usepackage{soul}
+\begin{document}
+\START\showoutput
+  \begin{list}{}{}
+    \item[\ul{1}] foo
+  \end{list}
+\end{document}

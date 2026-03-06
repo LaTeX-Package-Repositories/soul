@@ -1,0 +1,17 @@
+\documentclass{article}
+\input{regression-test}
+\usepackage{soul}
+\usepackage{lineno}
+
+\begin{document}
+\START\showoutput
+\noindent
+Test1\\
+\caps{ScTest1}\\
+\linenumbers
+Test2\\
+\caps{ScTest2}\\
+\nolinenumbers
+Test3\\
+\caps{ScTest3}\\
+\end{document}

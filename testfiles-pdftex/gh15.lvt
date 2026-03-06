@@ -1,0 +1,10 @@
+\input{regression-test}
+\documentclass{article}
+\usepackage{lineno}
+\usepackage{soul}
+\begin{document}
+\START\showoutput 
+\begin{internallinenumbers}
+  \ul{Foo bar}
+\end{internallinenumbers}
+\end{document}
