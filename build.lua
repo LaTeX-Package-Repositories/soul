@@ -22,6 +22,8 @@ textfiles = {"README.md"}
 maxprintline=10000
 checkruns = 2
 
+recordstatus = true
+
 tdslocations={
 "doc/latex/soul/soul.pdf",
 "doc/latex/soul/soul-ori.pdf",
