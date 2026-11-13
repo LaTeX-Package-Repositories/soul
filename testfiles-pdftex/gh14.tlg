@@ -14,6 +14,7 @@ Completed box being shipped out [1]
 ..\glue 25.0
 ..\glue(\lineskip) 0.0
 ..\vbox(550.0+0.0)x345.0, glue set 467.95001fil
+...\write1{\def\@LN@column{1}}
 ...\write-{}
 ...\glue(\topskip) 3.16669
 ...\hbox(6.83331+0.0)x345.0, glue set 321.33331fil
