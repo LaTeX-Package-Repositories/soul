@@ -1,0 +1,28 @@
+\input{regression-test}
+\documentclass[ngerman]{article}
+\usepackage[T1]{fontenc}
+\usepackage[ngerman]{babel}
+\usepackage{xcolor}
+\usepackage{soul}
+% \(...\) must give the same box as $...$
+\newcommand\CHECK[2]{%
+  \setbox0=\hbox{#1}\setbox2=\hbox{#2}%
+  \TYPE{\ifdim\wd0=\wd2 \ifdim\ht0=\ht2 \ifdim\dp0=\dp2
+    same\else different\fi\else different\fi\else different\fi
+    \space(\the\wd0)}}
+\begin{document}
+\START
+\CHECK{\hl{a \(x-y\) b}}{\hl{a $x-y$ b}}
+\CHECK{\ul{a \(x-y\) b}}{\ul{a $x-y$ b}}
+\CHECK{\st{a \(x-y\) b}}{\st{a $x-y$ b}}
+\CHECK{\so{a \(x-y\) b}}{\so{a $x-y$ b}}
+\CHECK{\caps{Ab \(x-y\) Cd}}{\caps{Ab $x-y$ Cd}}
+\CHECK{\hl{\emph{a \(x-y\) b}}}{\hl{\emph{a $x-y$ b}}}
+\CHECK{\hl{\(e^{i\pi}=-1\) text \(2=2\)}}{\hl{$e^{i\pi}=-1$ text $2=2$}}
+\CHECK{\hl{{a\(x^2\)b}}}{\hl{{a$x^2$b}}}
+\showoutput
+\hl{\(e^{i\pi}=-1\) and \emph{The Pythagorean Theorem \(a^2+b^2=c^2\)}}
+
+Bitte \hl{die „schönste“ Gleichung \(e^{i\pi}=-1\) und \emph{den „Satz des
+Pythagoras“ \(a^2+b^2=c^2\)}} farbig hinterlegen.
+\end{document}
