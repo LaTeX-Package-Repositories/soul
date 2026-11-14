@@ -3964,14 +3964,49 @@
 % while it doesn't seem to hurt in all other cases. I didn't investigate
 % this.
 % \changes{v3.1}{2023/05/04}{added a kern after leaders to guard against an unskip, issue \#8}
+% \changes{v3.3}{2026/11/14}{keep the color of a colored space inside the leader boxes, issue \#10}
+%
+% A colored space must not sit between a color push and its pop.
+% \TeX\ may break the line at the space. The push then stays at the
+% end of one line and the pop moves to the start of the next. At a page
+% break the color is carried over to the next page and colors e.g.\ the
+% top floats there (issue \#10). So for a colored line the color goes
+% into small boxes of width $w$, a quarter of the natural space, which
+% \cs{\xleaders} repeats. The space is split into two glues with the
+% same total natural width, stretch and shrink, so the line breaking
+% does not change. The first glue has the fixed width $w$ and holds
+% exactly one box, whose rule is $2w$ wide. The second glue holds the
+% rest of the space. Its boxes hold rules $1.5w$ wide, which cover the
+% gaps that \cs{\xleaders} leaves between them and at its end. The rule
+% of the first glue covers the gap at the start of the second glue.
+% Only the first glue is a legal breakpoint, and after a break \TeX\
+% discards the second glue as well. The penalty in |#1| is set outside
+% of any color group for the same reason.
 %    \begin{macrocode}
+\newdimen\SOUL@ulleaderwd
+\newskip\SOUL@ulrestskip
+\def\SOUL@ulcolorbox#1{%
+    \xleaders\hbox to\SOUL@ulleaderwd{%
+        \SOUL@ulcolor{\SOUL@ulleaders\hskip#1\SOUL@ulleaderwd\kern\z@}%
+        \hss
+    }%
+}
 \def\SOUL@uleveryspace#1{%
-    \SOUL@ulcolor{%
-        #1%
+    #1%
+    \ifx\SOUL@ulcolor\relax
         \SOUL@ulleaders
         \hskip\spaceskip
-        \kern\z@
-    }%
+    \else
+        \SOUL@ulleaderwd=.25\spaceskip
+        \ifdim\SOUL@ulleaderwd<.5\p@
+            \SOUL@ulleaderwd=.5\p@
+        \fi
+        \SOUL@ulrestskip=\spaceskip
+        \advance\SOUL@ulrestskip-\SOUL@ulleaderwd
+        \SOUL@ulcolorbox{2}\hskip\SOUL@ulleaderwd
+        \SOUL@ulcolorbox{1.5}\hskip\SOUL@ulrestskip
+    \fi
+    \kern\z@
     \null
 }
 %    \end{macrocode}

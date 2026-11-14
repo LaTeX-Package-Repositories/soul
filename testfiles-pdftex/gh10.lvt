@@ -1,0 +1,22 @@
+\input{regression-test}
+\documentclass{article}
+\usepackage{soul,color}
+
+\begin{document}
+\START \showoutput
+
+% issue #10: a line break at a highlighted space must not leave a
+% color push at the end of the line and its pop at the start of the next
+\parbox{1cm}{\hl{aaaa bbbb}}
+
+\parbox{1cm}{\hl{aaaa\\ bbbb}}
+
+\hl{a b}
+
+% the same for colored underlining and overstriking
+\setulcolor{red}\setstcolor{red}
+\parbox{1cm}{\ul{aaaa bbbb}}
+
+\parbox{1cm}{\st{aaaa bbbb}}
+
+\end{document}
