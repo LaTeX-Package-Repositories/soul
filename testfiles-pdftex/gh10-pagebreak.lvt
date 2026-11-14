@@ -1,0 +1,31 @@
+\input{regression-test}
+\documentclass{article}
+\usepackage{soul,color,float}
+% small pages, so that the highlighted paragraph crosses a page break
+% after a few lines and the output stays short
+\textheight=8\baselineskip
+\textwidth=4cm
+% a ruled float like the one of the algorithm package
+\floatstyle{ruled}
+\newfloat{program}{t}{lop}
+\floatname{program}{Program}
+
+\begin{document}
+\START \showoutput
+
+% issue #10: the last line of page 1 must not end with an open color
+% push, else the color carries over to page 2 and colors the caption
+% of the float placed at the top of it
+\hl{aaa bbb ccc ddd eee fff ggg hhh iii jjj kkk lll mmm nnn ooo ppp
+qqq rrr sss ttt uuu vvv www xxx yyy zzz aaa bbb ccc ddd eee fff ggg
+hhh iii jjj kkk lll mmm nnn ooo ppp qqq rrr sss ttt uuu vvv www xxx
+yyy zzz aaa bbb ccc ddd eee fff ggg hhh}
+
+\begin{program}[t]
+\caption{Caption}
+body
+\end{program}
+
+text
+
+\end{document}
