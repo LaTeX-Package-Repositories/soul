@@ -501,9 +501,11 @@
       \def\SOUL@n*{\SOUL@addgroup{}}%
     \else\ifcat$\noexpand\SOUL@@
       \def\SOUL@n*{\SOUL@addmath}%
+    \else\ifx\SOUL@@\(%
+      \def\SOUL@n*{\SOUL@addparenmath}%
     \else
       \def\SOUL@n*{\SOUL@dotoken}%
-    \fi\fi\fi\fi\fi\fi\fi\fi\fi\fi\fi\fi\fi
+    \fi\fi\fi\fi\fi\fi\fi\fi\fi\fi\fi\fi\fi\fi
   \fi\fi\fi\fi
   \SOUL@n*%
 }{%
@@ -589,6 +591,8 @@
       \def\SOUL@n*{\SOUL@addgroup{}}%
     \else\ifcat$\noexpand\SOUL@@
       \def\SOUL@n*{\SOUL@addmath}%
+    \else\ifx\SOUL@@\(%
+      \def\SOUL@n*{\SOUL@addparenmath}%
     \else
 %    \end{macrocode}
 %    The current token is examined to detect the start of
@@ -608,7 +612,7 @@
       \or % 4
         \def\SOUL@n*{\SOuL@addfouroctets}%
       \fi
-    \fi\fi\fi\fi\fi\fi\fi\fi\fi\fi\fi\fi\fi
+    \fi\fi\fi\fi\fi\fi\fi\fi\fi\fi\fi\fi\fi\fi
   \fi\fi\fi\fi
   \SOUL@n*%
 }
@@ -922,6 +926,36 @@
         \the\SOUL@word
 !       {\hbox{$#1$}}%
 +       {\etex@unexpanded{\hbox{$#1$}}}%
+      }%
+    }%
+  \x
+  \SOUL@scan
+}
+%    \end{macrocode}
+%    \end{macro}
+%    \begin{macro}{\SOUL@addparenmath}
+%    The same for \cs{(}\dots\cs{)} math (issue \#6).
+%    \begin{macrocode}
+\SOuL@redefine\SOUL@addparenmath\(#1\){%
+  {%
+    \let\protect\noexpand
+    \edef\x{%
+      \global\SOUL@word={%
+        \the\SOUL@word
+        {{\hbox{\noexpand\(#1\noexpand\)}}}%
+      }%
+    }%
+    \x
+  }%
+  \SOUL@scan
+}\(#1\){%
+  \begingroup
+    \let\protect\noexpand
+    \edef\x{\endgroup
+      \SOUL@word={%
+        \the\SOUL@word
+!       {\hbox{\noexpand\(#1\noexpand\)}}%
++       {\etex@unexpanded{\hbox{\(#1\)}}}%
       }%
     }%
   \x

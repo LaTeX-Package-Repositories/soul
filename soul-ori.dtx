@@ -578,8 +578,8 @@
 %   to be written enclosed in braces like in |\caps{{!`}Hola!}|.
 % \item[Mathematics: \so{foo$x^3$bar}]
 %   Mathematic formulas are allowed, as long as they are
-%   surrounded by~\texttt\$. Note that the \LaTeX\
-%   equivalent |\(...\)| does not work.
+%   surrounded by~\texttt\$ or by the \LaTeX\
+%   equivalent |\(...\)|.
 % \item[Hyphens and dashes: \so{re-sent}]
 %   Explicit hyphens as well as en-dashes~(|--|), em-dashes~(|---|)
 %   and the |\slash| command work as usual.
@@ -2574,9 +2574,11 @@
             \def\SOUL@n*{\SOUL@addgroup{}}%
         \else\ifcat$\noexpand\SOUL@@
             \def\SOUL@n*{\SOUL@addmath}%
+        \else\ifx\SOUL@@\(%
+            \def\SOUL@n*{\SOUL@addparenmath}%
         \else
             \def\SOUL@n*{\SOUL@dotoken}%
-        \fi\fi\fi\fi\fi\fi\fi\fi\fi\fi\fi\fi\fi
+        \fi\fi\fi\fi\fi\fi\fi\fi\fi\fi\fi\fi\fi\fi
     \fi\fi\fi\fi
     \SOUL@n*%
 }
@@ -2765,11 +2767,14 @@
 %
 % \begin{macro}{\SOUL@addgroup}
 % \begin{macro}{\SOUL@addmath}
+% \begin{macro}{\SOUL@addparenmath}
 % \begin{macro}{\SOUL@addprotect}
 % \begin{macro}{\SOUL@addtoken}
 % The macro names say it all. Each of these macros adds some
 % token to the word buffer \cs{\SOUL@word}. Setting \cs{\protect}
 % is necessary to make things like |\so{{a\itshape b}}| work.
+% \cs{\SOUL@addparenmath} does for \LaTeX's \cs{\(}\dots\cs{\)}
+% what \cs{\SOUL@addmath} does for |$|\dots|$| (issue \#6).
 %
 %    \begin{macrocode}
 \def\SOUL@addgroup#1#2{%
@@ -2782,6 +2787,11 @@
     \edef\x{\global\SOUL@word={\the\SOUL@word{{\hbox{$#1$}}}}}\x}%
     \SOUL@scan
 }
+\def\SOUL@addparenmath\(#1\){%
+    {\let\protect\noexpand
+    \edef\x{\global\SOUL@word={\the\SOUL@word{{\hbox{\noexpand\(#1\noexpand\)}}}}}\x}%
+    \SOUL@scan
+}
 \def\SOUL@addprotect#1#2{%
     {\let\protect\noexpand
     \edef\x{\global\SOUL@word={\the\SOUL@word{{\hbox{#2}}}}}\x}%
@@ -2792,6 +2802,7 @@
     \SOUL@scan
 }
 %    \end{macrocode}
+% \end{macro}
 % \end{macro}
 % \end{macro}
 % \end{macro}
